@@ -1,4 +1,4 @@
-"""Code 128 encoder based on the supplied pseudocode.
+"""Code 128 encoder. Based on IIT pseaudocode
 Install Pillow first: pip install pillow
 """
 from PIL import Image, ImageDraw
