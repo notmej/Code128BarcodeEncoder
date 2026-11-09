@@ -4,7 +4,7 @@
 
 Try the Code 128 Barcode Encoder here:
 
-[Code 128 Barcode Encoder](https://zetie.site/code128)
+[Code 128 Barcode Encoder](https://zetiee.site/code128/)
 
 # Encoder
 
