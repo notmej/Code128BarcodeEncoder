@@ -1,5 +1,13 @@
 # Code 128 Barcode Encoder
 
+## Live Demo
+
+Try the Code 128 Barcode Encoder here:
+
+[Code 128 Barcode Encoder](https://zetie.site/code128)
+
+# Encoder
+
 A Python implementation of a **Code 128 barcode encoder** based on a pseudocode algorithm. It converts ASCII text into Code 128 symbol values, calculates and verifies a modulo-103 checksum, and draws the resulting barcode as a PNG bitmap.
 
 The implementation uses a **greedy heuristic** to decide when to switch to Code Set C; it does **not** guarantee the shortest possible symbol sequence.
