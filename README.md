@@ -17,7 +17,7 @@ The implementation uses a **greedy heuristic** to decide when to switch to Code 
 - Python 3
 - [Pillow](https://pillow.readthedocs.io/) for image generation
 
-## Setup
+## local Setup
 
 From the project folder, create and activate a virtual environment:
 
@@ -71,7 +71,7 @@ create_code128("ABC123456", "my_barcode.png")
 ## How it works
 
 1. **Validate input:** reject empty strings and characters outside the 7-bit ASCII range (0–127).
-2. **Select a starting code set:** use Start A (`103`) when the first character is an ASCII control character; otherwise use Start B (`104`).
+2. **Select a starting code set:** use Start C (`105`) if there are at least 6 consecutive leading digits, or at least 4 leading digits extending to the end of the input; otherwise, use Start A (`103`) if the first character is an ASCII control character, or Start B (`104`) for other characters.
 3. **Encode the text:** traverse the input and count consecutive digits. Switch to Code C (`99`) for runs of at least six digits, or at least four digits at the end; encode pairs of digits as values from `00` to `99`. Switch between Code A (`101`) and Code B (`100`) as needed for other characters.
 4. **Calculate the checksum:** add the Start symbol value to the weighted sum of subsequent symbol values, then take the remainder modulo 103.
 5. **Append checksum and Stop:** add the checksum symbol and the Stop symbol (`106`). Recalculate the weighted sum to check that the stored checksum matches the encoded symbol sequence.
