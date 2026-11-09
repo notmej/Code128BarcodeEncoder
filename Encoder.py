@@ -132,7 +132,17 @@ def create_code128(text: str, filename: str = "barcode.png") -> Image.Image:
     quietZone = 10
 
     # Select starting code set
-    if ord(text[0]) < 32:
+    # Select starting code set
+    digits = 0
+
+    # Count consecutive digits
+    while i + digits < len(text) and "0" <= text[i + digits] <= "9":
+        digits += 1
+
+    if digits >= 6 or (digits >= 4 and i + digits == len(text)):
+        symbols.append(105)  # Start C
+        code = "C"
+    elif ord(text[0]) < 32:
         symbols.append(103)  # Start A
         code = "A"
     else:
@@ -211,14 +221,17 @@ def create_code128(text: str, filename: str = "barcode.png") -> Image.Image:
     symbols.append(chksum)
     symbols.append(106)  # Stop
 
-    # Recalculate checksum to verify the stored value
+    # Validation
+    first = symbols[0]
+    last = symbols[-1]
     check = symbols[-2]
     verifySum = symbols[0]
+
     for position in range(1, len(symbols) - 2):
         verifySum += symbols[position] * position
 
-    if check != verifySum % 103:
-        raise ValueError("Checksum verification failed.")
+    if first not in [103, 104, 105] or last != 106 or check != verifySum % 103:
+        raise ValueError("Barcode validation failed.")
 
     # Convert each symbol to its bar/space width pattern
     for value in symbols:
